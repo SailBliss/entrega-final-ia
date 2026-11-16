@@ -9,8 +9,8 @@ Proyecto final de Inteligencia Artificial, SI3003, Universidad EAFIT. Explora co
 Se probó con Python 3.12 en Windows. Desde la raíz del repositorio, en PowerShell:
 
 ```powershell
-git clone https://github.com/SailBliss/sarah.git
-cd sarah
+git clone https://github.com/SailBliss/entrega-final-ia.git
+cd entrega-final-ia
 git switch feature/integracion-final-ia
 py -3.12 -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements.txt
