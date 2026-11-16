@@ -41,7 +41,7 @@ Los metadatos permiten conservar información sobre el documento de origen y el 
 
 La función `search_docs()` realiza las consultas documentales del agente.
 
-El sistema combina la búsqueda semántica mediante embeddings con una búsqueda por coincidencia de palabras clave. Posteriormente, integra los resultados para recuperar los fragmentos más relevantes.
+La instalación base usa coincidencias de palabras clave, con prioridad a identificadores normativos explícitos en los nombres de archivo. El modo híbrido opcional agrega la búsqueda semántica y combina los rankings. Ambos usan la colección incluida, que contiene 1.095 fragmentos. La aplicación abre una copia temporal del índice y conserva intacto el original. Consulta el README para reconstruir la colección en un directorio nuevo.
 
 La información recuperada incluye:
 
