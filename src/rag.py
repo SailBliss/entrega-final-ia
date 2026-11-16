@@ -1,23 +1,28 @@
+import argparse
+from functools import lru_cache
+import os
+import shutil
+from tempfile import TemporaryDirectory
 
 import re
+import unicodedata
 import hashlib
 import io
 from pathlib import Path
 
 import pymupdf
 import chromadb
-import pytesseract
 
 from PIL import Image, ImageOps, ImageEnhance, ImageFilter
-from sentence_transformers import SentenceTransformer
 
 
 # ==========================================
 # CONFIGURACIÓN
 # ==========================================
 
-CARPETA_PDF = Path("data/documentos_ambientales")
-RUTA_BD = "data/chroma_db"
+ROOT = Path(__file__).resolve().parents[1]
+CARPETA_PDF = ROOT / "data/documentos_ambientales"
+RUTA_BD = ROOT / "data/chroma_db"
 NOMBRE_COLECCION = "documentos_oficiales_v2"
 
 MODELO_EMBEDDINGS = "paraphrase-multilingual-MiniLM-L12-v2"
@@ -25,37 +30,44 @@ MODELO_EMBEDDINGS = "paraphrase-multilingual-MiniLM-L12-v2"
 TAMANO_FRAGMENTO = 900
 SOLAPAMIENTO = 150
 
-# Ubicación de Tesseract OCR en Windows
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
-
-
 # ==========================================
 # CARGAR MODELO DE EMBEDDINGS
 # ==========================================
 
 # Cargar el modelo multilingüe para representar textos
+@lru_cache(maxsize=1)
 def cargar_modelo():
+    from sentence_transformers import SentenceTransformer
 
-    print("Cargando modelo multilingüe...")
-
-    return SentenceTransformer(MODELO_EMBEDDINGS)
+    return SentenceTransformer(MODELO_EMBEDDINGS, device="cpu")
 
 
-# ==========================================
-# CONEXIÓN CON CHROMADB
-# ==========================================
-
-# Crear o recuperar la colección de documentos
 def obtener_coleccion():
+    path = Path(os.getenv("RAG_INDEX_DIR", str(RUTA_BD)))
+    if not path.is_absolute():
+        path = ROOT / path
+    collection, _ = _abrir_coleccion(str(path.resolve()))
+    return collection
 
-    cliente = chromadb.PersistentClient(path=RUTA_BD)
 
-    return cliente.get_or_create_collection(
-        name=NOMBRE_COLECCION,
-        metadata={"hnsw:space": "cosine"}
+@lru_cache(maxsize=4)
+def _abrir_coleccion(path):
+    if not Path(path, "chroma.sqlite3").is_file():
+        raise ValueError("No se encontró el índice documental. Consulta las instrucciones del README.")
+    # Chroma puede modificar el SQLite al abrirlo. Conserva intacta la copia del repositorio.
+    working = TemporaryDirectory(prefix="sarah-rag-", ignore_cleanup_errors=True)
+    shutil.copytree(path, working.name, dirs_exist_ok=True)
+    cliente = chromadb.PersistentClient(
+        path=working.name, settings=chromadb.Settings(anonymized_telemetry=False),
     )
+    return cliente.get_collection(name=NOMBRE_COLECCION), working
+
+
+def crear_coleccion(path):
+    cliente = chromadb.PersistentClient(
+        path=str(path), settings=chromadb.Settings(anonymized_telemetry=False),
+    )
+    return cliente.create_collection(name=NOMBRE_COLECCION, metadata={"hnsw:space": "cosine"})
 
 
 # ==========================================
@@ -252,9 +264,8 @@ def crear_id(fuente, pagina, numero, texto):
 # ==========================================
 
 # Almacenar fragmentos, embeddings y referencias documentales
-def guardar_en_chroma(fragmentos, embeddings, fuente, paginas):
+def guardar_en_chroma(fragmentos, embeddings, fuente, paginas, coleccion):
 
-    coleccion = obtener_coleccion()
 
     ids = []
     metadatos = []
@@ -283,14 +294,7 @@ def guardar_en_chroma(fragmentos, embeddings, fuente, paginas):
 # ==========================================
 
 # Extraer, fragmentar e indexar todos los documentos
-def cargar_documentos(modelo):
-
-    coleccion = obtener_coleccion()
-
-    # Limpiar la colección antes de crear el índice
-    coleccion.delete(
-        where={"fuente": {"$ne": ""}}
-    )
+def cargar_documentos(modelo, coleccion):
 
     total = 0
 
@@ -354,7 +358,8 @@ def cargar_documentos(modelo):
             fragmentos,
             embeddings,
             archivo.name,
-            numeros_paginas
+            numeros_paginas,
+            coleccion
         )
 
         total += len(fragmentos)
@@ -381,18 +386,15 @@ PALABRAS_VACIAS = {
 
 
 # Identificar las palabras importantes de una pregunta
+def normalizar_busqueda(texto):
+    texto = unicodedata.normalize("NFD", texto.lower())
+    texto = "".join(c for c in texto if not unicodedata.combining(c))
+    return re.sub(r"pm\s*2[.,]5", "pm25", texto)
+
+
 def extraer_palabras(texto):
-
-    palabras = re.findall(
-        r"\b[a-záéíóúüñ0-9]{3,}\b",
-        texto.lower()
-    )
-
-    return {
-        palabra
-        for palabra in palabras
-        if palabra not in PALABRAS_VACIAS
-    }
+    palabras = re.findall(r"[a-z0-9]{3,}", normalizar_busqueda(texto))
+    return {palabra for palabra in palabras if palabra not in PALABRAS_VACIAS}
 
 
 # Calcular coincidencias entre la pregunta y un fragmento
@@ -413,7 +415,7 @@ def calcular_coincidencias(pregunta, texto):
 
 
 # Combinar búsqueda semántica y búsqueda por palabras clave
-def buscar_documentos(pregunta, modelo, cantidad=5):
+def buscar_documentos(pregunta, modelo=None, cantidad=5):
 
     coleccion = obtener_coleccion()
 
@@ -423,44 +425,45 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
 
         return []
 
-    # Buscar fragmentos mediante significado
-    embedding = modelo.encode(
-        [pregunta],
-        normalize_embeddings=True
-    )
-
-    candidatos = min(40, total)
-
-    resultados = coleccion.query(
-        query_embeddings=embedding.tolist(),
-        n_results=candidatos,
-        include=[
-            "documents",
-            "metadatas",
-            "distances"
-        ]
-    )
-
-    # Organizar los resultados semánticos
     documentos_semanticos = {}
+    if modelo is not None:
+        # Buscar fragmentos mediante significado
+        embedding = modelo.encode(
+            [pregunta],
+            normalize_embeddings=True
+        )
 
-    for posicion, (identificador, texto, metadata, distancia) in enumerate(
-        zip(
-            resultados["ids"][0],
-            resultados["documents"][0],
-            resultados["metadatas"][0],
-            resultados["distances"][0]
-        ),
-        start=1
-    ):
+        candidatos = min(40, total)
 
-        documentos_semanticos[identificador] = {
-            "texto": texto,
-            "fuente": metadata["fuente"],
-            "pagina": metadata["pagina"],
-            "distancia": float(distancia),
-            "posicion": posicion
-        }
+        resultados = coleccion.query(
+            query_embeddings=embedding.tolist(),
+            n_results=candidatos,
+            include=[
+                "documents",
+                "metadatas",
+                "distances"
+            ]
+        )
+
+        # Organizar los resultados semánticos
+
+        for posicion, (identificador, texto, metadata, distancia) in enumerate(
+            zip(
+                resultados["ids"][0],
+                resultados["documents"][0],
+                resultados["metadatas"][0],
+                resultados["distances"][0]
+            ),
+            start=1
+        ):
+
+            documentos_semanticos[identificador] = {
+                "texto": texto,
+                "fuente": metadata["fuente"],
+                "pagina": metadata["pagina"],
+                "distancia": float(distancia),
+                "posicion": posicion
+            }
 
     # Recuperar los fragmentos para buscar palabras clave
     todos = coleccion.get(
@@ -468,6 +471,7 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
     )
 
     documentos_clave = []
+    referencias = re.findall(r"\b(resolucion|circular|acuerdo)\s+(\d+)\b", normalizar_busqueda(pregunta))
 
     for identificador, texto, metadata in zip(
         todos["ids"],
@@ -480,6 +484,9 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
             texto
         )
 
+        nombre = normalizar_busqueda(metadata["fuente"])
+        if puntuacion > 0 and any(f"{tipo}_{numero}_" in nombre for tipo, numero in referencias):
+            puntuacion += 1.0
         if puntuacion > 0:
 
             documentos_clave.append({
@@ -510,7 +517,7 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
         )
 
     for posicion, documento in enumerate(
-        documentos_clave,
+        documentos_clave[:40],
         start=1
     ):
 
@@ -530,7 +537,10 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
 
     documentos_finales = []
 
-    for identificador in mejores_ids[:cantidad]:
+    paginas_vistas = set()
+    for identificador in mejores_ids:
+        if len(documentos_finales) >= cantidad:
+            break
 
         if identificador in documentos_semanticos:
 
@@ -550,6 +560,10 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
                 "distancia": 1.0
             }
 
+        pagina = (documento["fuente"], documento["pagina"])
+        if pagina in paginas_vistas:
+            continue
+        paginas_vistas.add(pagina)
         documento["puntuacion_hibrida"] = (
             puntuaciones[identificador]
         )
@@ -560,85 +574,15 @@ def buscar_documentos(pregunta, modelo, cantidad=5):
 
 
 # ==========================================
-# PREGUNTAS DE EVALUACIÓN INICIAL
-# ==========================================
-
-PREGUNTAS = [
-
-    "¿Qué enfermedades y eventos de salud están priorizados en la vigilancia de los efectos de la contaminación del aire?",
-
-    "¿Qué grupos de edad son considerados vulnerables frente a la contaminación atmosférica en Medellín?",
-
-    "¿Qué medidas de promoción, prevención y participación comunitaria establece el protocolo de vigilancia ambiental?",
-
-    "¿Qué significa POECA, cuál es su objetivo y qué medidas establece para enfrentar episodios críticos de contaminación atmosférica?",
-
-    "¿Qué contaminantes atmosféricos analiza el Informe Anual de Calidad del Aire 2025?",
-
-    "¿Cómo se comportaron las concentraciones de PM2.5 en las estaciones de monitoreo del Valle de Aburrá durante 2025?",
-
-    "¿Qué efectos respiratorios y cardiovasculares se relacionan con la exposición a contaminantes atmosféricos?",
-
-    "¿Qué estrategias de gestión de calidad del aire y de ciudad inteligente se plantean para el Valle de Aburrá?"
-
-]
-
-
-# ==========================================
-# EJECUTAR INDEXACIÓN Y EVALUACIÓN
-# ==========================================
 
 if __name__ == "__main__":
-
-    modelo = cargar_modelo()
-
-    total = cargar_documentos(modelo)
-
-    print("\n" + "=" * 65)
-
-    print("TOTAL DE FRAGMENTOS INDEXADOS:", total)
-
-    coleccion = obtener_coleccion()
-
-    print("TOTAL EN CHROMADB:", coleccion.count())
-
-    # Probar la búsqueda con las preguntas de evaluación
-    for numero, pregunta in enumerate(PREGUNTAS, start=1):
-
-        resultados = buscar_documentos(
-            pregunta,
-            modelo,
-            cantidad=5
-        )
-
-        print("\n" + "=" * 65)
-
-        print("PREGUNTA", numero)
-
-        print(pregunta)
-
-        print("\nRESULTADOS:")
-
-        if not resultados:
-
-            print("No se encontraron documentos.")
-
-            continue
-
-        for resultado in resultados:
-
-            print("\nFUENTE:", resultado["fuente"])
-
-            print("PÁGINA:", resultado["pagina"])
-
-            print(
-                "DISTANCIA:",
-                round(resultado["distancia"], 4)
-            )
-
-            print(
-                "PUNTUACIÓN HÍBRIDA:",
-                round(resultado["puntuacion_hibrida"], 4)
-            )
-
-            print("TEXTO:", resultado["texto"])
+    parser = argparse.ArgumentParser(description="Reconstruye el índice RAG en un directorio nuevo.")
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    out = args.output.resolve()
+    if out.exists():
+        parser.error("Indica un directorio de salida que todavía no exista.")
+    model = cargar_modelo()
+    collection = crear_coleccion(out)
+    total = cargar_documentos(model, collection)
+    print(f"{total} fragmentos indexados en {out}")

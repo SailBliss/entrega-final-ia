@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from src.data_loader import DATA_PATH, NOMBRES_CATEGORIAS, load_clean_data
+from src.data_loader import DATA_PATH, NOMBRES_CATEGORIAS, load_clean_data, parse_date, station_data
 
 FEATURE_COLS = [
     "pm25_hoy",
@@ -25,8 +25,10 @@ def build_features(df_estacion: pd.DataFrame) -> pd.DataFrame:
     df["mes_sin"] = np.sin(2 * np.pi * mes / 12.0)
     df["mes_cos"] = np.cos(2 * np.pi * mes / 12.0)
 
-    df["target_manana"] = df["categoria"].shift(-1)
-    return df.dropna().reset_index(drop=True)
+    consecutive = df["fecha"].diff().eq(pd.Timedelta(days=1))
+    df["fecha_objetivo"] = df["fecha"].shift(-1).where(consecutive.shift(-1, fill_value=False))
+    df["target_manana"] = df["categoria"].shift(-1).where(df["fecha_objetivo"].notna())
+    return df.loc[consecutive & consecutive.shift(1, fill_value=False)].reset_index(drop=True)
 
 class GaussianNaiveBayes:
     """Implementación propia de Gaussian Naive Bayes desde cero en NumPy."""
@@ -47,7 +49,7 @@ class GaussianNaiveBayes:
         self.means_ = np.zeros((n_classes, n_features), dtype=np.float64)
         self.vars_ = np.zeros((n_classes, n_features), dtype=np.float64)
 
-        epsilon = self.var_smoothing * np.var(X, axis=0).max()
+        epsilon = max(self.var_smoothing * np.var(X, axis=0).max(), np.finfo(float).eps)
 
         for idx, c in enumerate(self.classes_):
             X_c = X[y == c]
@@ -70,66 +72,63 @@ class GaussianNaiveBayes:
     def predict_proba(self, X: np.ndarray) -> np.ndarray:
         jll = self._joint_log_likelihood(X)
         max_jll = np.max(jll, axis=1, keepdims=True)
-        log_prob_x = max_jll + np.log(
-            np.sum(np.exp(jll - max_jll), axis=1, keepdims=True)
-        )
-        return np.exp(jll - log_prob_x)
+        weights = np.exp(jll - max_jll)
+        return weights / weights.sum(axis=1, keepdims=True)
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         return self.classes_[np.argmax(self._joint_log_likelihood(X), axis=1)]
 
-_MODEL_CACHE = {}
+MIN_TRAIN = 30
 
-def train_station_model(station_id: str, filepath: str = DATA_PATH):
+
+def valid_reference_dates(station_id, filepath=DATA_PATH):
     df = load_clean_data(filepath)
-    df_est = df[df["estacion"] == station_id]
-    if df_est.empty:
-        raise ValueError(f"Estación '{station_id}' no encontrada.")
+    features = build_features(station_data(df, station_id))
+    labeled = features.dropna(subset=["target_manana"])
+    if len(labeled) < MIN_TRAIN or labeled["target_manana"].nunique() < 2:
+        return []
+    min_rows = labeled["fecha_objetivo"].iloc[MIN_TRAIN - 1]
+    min_classes = labeled.loc[labeled["target_manana"] != labeled["target_manana"].iloc[0], "fecha_objetivo"].iloc[0]
+    valid = features["fecha"].between(max(min_rows, min_classes), df["fecha"].max() - pd.Timedelta(days=1))
+    return features.loc[valid, "fecha"].dt.strftime("%Y-%m-%d").tolist()
 
-    df_feat = build_features(df_est)
-    X = df_feat[FEATURE_COLS].values
-    y = df_feat["target_manana"].astype(int).values
 
-    split = int(len(X) * 0.8)
-    model = GaussianNaiveBayes().fit(X[:split], y[:split])
-    _MODEL_CACHE[station_id] = (model, df_feat)
-    return model, df_feat
-
-def predict_tomorrow(
-    station_id: str,
-    reference_date: str = None,
-    filepath: str = DATA_PATH,
-) -> dict:
-    """Devuelve la predicción de categoría ICA y probabilidades para t+1."""
-    if station_id not in _MODEL_CACHE:
-        train_station_model(station_id, filepath)
-
-    model, df_feat = _MODEL_CACHE[station_id]
-
+def predict_tomorrow(station_id, reference_date=None, filepath=DATA_PATH):
+    """Ajusta por estación con etiquetas conocidas al cierre de la referencia."""
+    df = load_clean_data(filepath)
+    features = build_features(station_data(df, station_id))
     if reference_date is None:
-        fila = df_feat.iloc[[-1]]
-    else:
-        ref_dt = pd.to_datetime(reference_date)
-        anteriores = df_feat[df_feat["fecha"] <= ref_dt]
-        if anteriores.empty:
-            raise ValueError(f"Sin datos previos a {reference_date} para {station_id}.")
-        fila = anteriores.iloc[[-1]]
-
-    X_in = fila[FEATURE_COLS].values
-    probs = model.predict_proba(X_in)[0]
-    pred_id = int(model.predict(X_in)[0])
-
-    prob_dict = {nombre: 0.0 for nombre in NOMBRES_CATEGORIAS.values()}
-    for c, p in zip(model.classes_, probs):
-        prob_dict[NOMBRES_CATEGORIAS[int(c)]] = round(float(p), 4)
-
+        fechas = valid_reference_dates(station_id, filepath)
+        if not fechas:
+            raise ValueError("No hay fechas con suficiente historial para esta estación.")
+        reference_date = fechas[-1]
+    ref = parse_date(reference_date)
+    target = ref + pd.Timedelta(days=1)
+    if ref < df["fecha"].min() or target > df["fecha"].max():
+        raise ValueError("La referencia y el día siguiente deben pertenecer al período histórico de 2020.")
+    row = features.loc[features["fecha"] == ref]
+    if row.empty:
+        raise ValueError("Se requieren mediciones en la fecha elegida y en los dos días calendario previos.")
+    train = features.loc[features["fecha_objetivo"] <= ref]
+    if len(train) < MIN_TRAIN or train["target_manana"].nunique() < 2:
+        raise ValueError("Se requieren al menos 30 ejemplos históricos y dos categorías observadas.")
+    model = GaussianNaiveBayes().fit(train[FEATURE_COLS].to_numpy(), train["target_manana"].astype(int).to_numpy())
+    probs = model.predict_proba(row[FEATURE_COLS].to_numpy())[0]
+    pred_id = int(model.classes_[probs.argmax()])
+    by_category = {name: 0.0 for name in NOMBRES_CATEGORIAS.values()}
+    for category, probability in zip(model.classes_, probs):
+        by_category[NOMBRES_CATEGORIAS[int(category)]] = float(probability)
     return {
         "estacion": station_id,
-        "fecha_referencia": fila["fecha"].iloc[0].strftime("%Y-%m-%d"),
-        "fecha_prediccion": (fila["fecha"].iloc[0] + pd.Timedelta(days=1)).strftime("%Y-%m-%d"),
-        "pm25_referencia": round(float(fila["pm25_hoy"].iloc[0]), 2),
+        "fecha_referencia": ref.date().isoformat(),
+        "fecha_prediccion": target.date().isoformat(),
+        "pm25_referencia": float(row["pm25_hoy"].iloc[0]),
         "categoria_predicha_id": pred_id,
         "categoria_predicha": NOMBRES_CATEGORIAS[pred_id],
-        "probabilidades": prob_dict,
-        "modelo": "Gaussian Naive Bayes (Implementación propia)",
+        "probabilidades": by_category,
+        "categorias_entrenadas": [NOMBRES_CATEGORIAS[int(c)] for c in model.classes_],
+        "n_entrenamiento": len(train),
+        "ultima_etiqueta_entrenamiento": train["fecha_objetivo"].max().date().isoformat(),
+        "modelo": "Gaussian Naive Bayes (implementación propia)",
+        "alcance": "Predicción experimental sobre datos históricos de 2020.",
     }

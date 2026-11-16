@@ -1,57 +1,76 @@
-
 [
   {
     "id": 1,
     "pregunta": "Según la Circular 0031 de 2026, ¿qué recomendaciones de salud se deben seguir durante episodios de humo y qué grupos poblacionales requieren especial atención?",
-    "herramienta_esperada": "search_docs"
+    "herramienta_esperada": "search_docs",
+    "documentos_esperados": [
+      "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf"
+    ]
   },
   {
     "id": 2,
     "pregunta": "¿Cuáles son los límites máximos permisibles de concentración de PM2.5 establecidos en la Resolución 2254 de 2017 para Colombia?",
-    "herramienta_esperada": "search_docs"
+    "herramienta_esperada": "search_docs",
+    "documentos_esperados": [
+      "resolucion_2254_2017_norma_calidad_aire.pdf"
+    ]
   },
   {
     "id": 3,
     "pregunta": "¿Qué niveles de prevención, alerta y emergencia contempla el protocolo POECA del Valle de Aburrá y bajo qué condiciones se activan?",
-    "herramienta_esperada": "search_docs"
+    "herramienta_esperada": "search_docs",
+    "documentos_esperados": [
+      "acuerdo_04_2018_protocolo_poeca_amva.pdf"
+    ]
   },
   {
     "id": 4,
     "pregunta": "¿Qué medidas contempla el protocolo POECA para reducir la contaminación atmosférica durante episodios críticos?",
-    "herramienta_esperada": "search_docs"
+    "herramienta_esperada": "search_docs",
+    "documentos_esperados": [
+      "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+      "plan_accion_poeca_corantioquia_2026.pdf"
+    ]
   },
   {
     "id": 5,
     "pregunta": "¿Cuáles son los principales efectos de la exposición a la contaminación atmosférica sobre la salud humana?",
-    "herramienta_esperada": "search_docs"
+    "herramienta_esperada": "search_docs",
+    "documentos_esperados": [
+      "efectos_contaminacion_atmosferica_salud_amva_2022.pdf.pdf"
+    ]
   },
   {
     "id": 6,
     "pregunta": "¿Por qué los niños, adultos mayores y personas con enfermedades respiratorias son considerados grupos vulnerables frente a la contaminación del aire?",
-    "herramienta_esperada": "search_docs"
+    "herramienta_esperada": "search_docs",
+    "documentos_esperados": [
+      "efectos_contaminacion_atmosferica_salud_amva_2022.pdf.pdf",
+      "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf"
+    ]
   },
   {
     "id": 7,
-    "pregunta": "Consulta las mediciones de PM2.5 registradas en la estación estacion_demo_1 entre el 10 y el 15 de noviembre de 2026. ¿Cuáles fueron los valores registrados?",
+    "pregunta": "Consulta las mediciones de PM2.5 de la estación «BARBOSA - TORRE SOCIAL» entre 2020-01-01 y 2020-01-05. ¿Cuáles fueron los valores registrados?",
     "herramienta_esperada": "get_pm25",
-    "station_id": "estacion_demo_1",
-    "start_date": "2026-11-10",
-    "end_date": "2026-11-15"
+    "station_id": "BARBOSA - TORRE SOCIAL",
+    "start_date": "2020-01-01",
+    "end_date": "2020-01-05"
   },
   {
     "id": 8,
-    "pregunta": "Consulta el histórico de PM2.5 de la estación estacion_demo_1 entre el 1 y el 7 de noviembre de 2026. ¿Cuál fue el comportamiento de las mediciones durante ese periodo?",
+    "pregunta": "Consulta las mediciones de PM2.5 de la estación «BARBOSA - TORRE SOCIAL» entre 2020-11-01 y 2020-11-07. ¿Cuáles fueron los valores registrados?",
     "herramienta_esperada": "get_pm25",
-    "station_id": "estacion_demo_1",
-    "start_date": "2026-11-01",
-    "end_date": "2026-11-07"
+    "station_id": "BARBOSA - TORRE SOCIAL",
+    "start_date": "2020-11-01",
+    "end_date": "2020-11-07"
   },
   {
     "id": 9,
-    "pregunta": "¿Cuál es la predicción de calidad del aire para mañana en la estación estacion_demo_1?",
+    "pregunta": "¿Qué categoría predice el modelo para el día siguiente al 2020-11-15 en la estación «BARBOSA - TORRE SOCIAL»?",
     "herramienta_esperada": "predict_tomorrow",
-    "station_id": "estacion_demo_1",
-    "reference_date": "2026-11-15"
+    "station_id": "BARBOSA - TORRE SOCIAL",
+    "reference_date": "2020-11-15"
   },
   {
     "id": 10,
