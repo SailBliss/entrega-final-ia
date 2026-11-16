@@ -11,7 +11,6 @@ Se probó con Python 3.12 en Windows. Desde la raíz del repositorio, en PowerSh
 ```powershell
 git clone https://github.com/SailBliss/entrega-final-ia.git
 cd entrega-final-ia
-git switch feature/integracion-final-ia
 py -3.12 -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements.txt
 .\.venv\Scripts\python -m streamlit run app.py
