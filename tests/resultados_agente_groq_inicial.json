@@ -1,0 +1,188 @@
+[
+  {
+    "id": 1,
+    "pregunta": "Según la Circular 0031 de 2026, ¿qué recomendaciones de salud se deben seguir durante episodios de humo y qué grupos poblacionales requieren especial atención?",
+    "herramienta_esperada": "search_docs",
+    "estado": "correcta",
+    "modo_respuesta": "llm",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "**Recomendaciones de salud durante episodios de humo (Circular 0031 de 2026)**  \n\n1. **Protección respiratoria**  \n   - Cuando sea indispensable permanecer en exteriores en presencia de humo, se deben seguir las recomendaciones sanitarias sobre protección respiratoria.  \n   - Se recomienda usar adecuadamente tapabocas que reduzcan la inhalación de partículas.  \n\n2. **Priorizar la protección de grupos vulnerables**  \n   - Niños y niñas  \n   - Personas mayores  \n   - Mujeres gestantes  \n   - Personas con enfermedades respiratorias o cardiovasculares  \n\n3. **Fortalecimiento de las acciones locales**  \n   - Identificar y priorizar entornos con presencia de población susceptible (instituciones educativas, de salud, centros de protección, establecimientos de larga estancia, entornos comunitarios y laborales al aire libre, comunidades rurales y grupos con barreras de acceso a servicios).  \n   - Mantener el seguimiento y la vigilancia mientras persista el humo, la deterioración de la calidad del aire u otras condiciones de riesgo.  \n\n---\n\n**Citas**  \n- [circular_0031_2026_recomendaciones_salud_incendios_humo.pdf, p. 8]  \n- [circular_0031_2026_recomendaciones_salud_incendios_humo.pdf, p. 4]",
+    "citas_recuperadas": [
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 2,
+        "pagina_valida": true
+      },
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 8,
+        "pagina_valida": true
+      },
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 1,
+        "pagina_valida": true
+      },
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 4,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": true,
+    "error": null,
+    "errores_herramientas": []
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Cuáles son los límites máximos permisibles de concentración de PM2.5 establecidos en la Resolución 2254 de 2017 para Colombia?",
+    "herramienta_esperada": "search_docs",
+    "estado": "incorrecta",
+    "modo_respuesta": "respaldo",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "Fragmentos recuperados del corpus:\n\n**efectos_contaminacion_atmosferica_salud_amva_2022.pdf.pdf · p. 9**\n\n9 expuestas a dicho ambiente.” (IDEAM, s.f) 5. Es decir, la contaminación atmosférica corresponde a los elementos potencialmente nocivos para la salud que se encuentran en el aire, entre estos, los que cobrarán mayor relevancia para el trabajo serán el material particulado PM10 y PM2,5. De igual forma es importante comprender que el material particulado hace referencia a todas aquellas partículas sólidas y líquidas que son emitidas de forma directa al aire por diferentes fuentes de emisiones y actividades (Fang, et al., 2003). Para el caso de Colombia, y según la resolución 2254 del 01 de noviembre del 2017, los niveles máximos permisibles diarios de estos materiales son 100 µg /m3 para el PM10 y 50 µg /m3 para el PM2,5.\n\n**informe_calidad_aire_2025.pdf · p. 162**\n\nLa concentración promedio anual de PM2.5 en la estación GIR-EPM, fue menor al promedio histórico registrado en esta estación, volviendo al comportamiento de anomalías negativas registrado en los años 2022 y 2023. En el caso del PM10, para el año 2025 no se presentaron excedencias en los niveles máximos permisibles a escala diaria (75 µg/m3) y anual (50 µg/m3), ambos definidos en la Resolución 2254 de 2017 del MADS. Para el caso de este contaminante, tanto la concentración máxima diaria (66.1 µg/m3) como el promedio anual (36 µg/m3) fueron menores en el año 2025 con respecto al año 2024. El comportamiento anual de PM10 para el 2025 registró una anomalía negativa, es decir que la concentración promedio de este contaminante estuvo por debajo del valor promedio anual histórico.\n\n**informe_calidad_aire_2025.pdf · p. 167**\n\nEn la estación ITA-CONC, no se registraron valores diarios por encima de los establecidos por la resolución. Teniendo en cuenta el promedio anual de PM2.5 registrado para el año 2025 en las estaciones de PM2.5 de Itagüí, se tiene una reducción con respecto al año anterior, con excepción de la estación ITA-CJUS donde la concentración promedio anual de PM2.5 estuvo un poco más alta a la reportada en 2024. Entre las estaciones ubicadas por fuera del Distrito de Medellín, ITA-CJUS registró las concentraciones máximas diarias y promedio anual, más altas. Para el contaminante PM10, monitoreado en las estaciones ITA-CONC (automática), ITA-PTAR (ma- nual) e ITA-POGO (manual y automática) se tiene que la estación ITA-CONC no registra excedencias del nivel máximo permisibles diario de PM10 (75 µg/m3), ni anual (50 µg/m3) definidos en la Resolución 2254 de 2017 del MADS.\n\n**informe_calidad_aire_2025.pdf · p. 19**\n\nInforme Anual de Calidad del Aire 2025 - CCT261 de 2025 Los resultados presentados en este informe se calculan a partir de las concentraciones sometidas a en- sayo y muestreo durante el año 2025 para los diferentes equipos manuales y automáticos de la Red de Monitoreo de Calidad del Aire del Valle de Aburrá. Las concentraciones a analizar en este informe son las pertenecientes al año 2025 y son responsabilidad del proyecto SIATA. Las concentraciones obtenidas para los diferentes contaminantes criterio se comparan, en unidades de µg/m3 y en condiciones de refe- rencia, con los niveles máximos permisibles establecidos en la Resolución 2254 de 2017 del Ministerio de Ambiente y Desarrollo Sostenible. Los resultados del gas NOx son reportados en ppm, ya que al ser una familia química no tiene factor de conversión a las unidades µg/m3.",
+    "citas_recuperadas": [
+      {
+        "documento": "efectos_contaminacion_atmosferica_salud_amva_2022.pdf.pdf",
+        "pagina": 9,
+        "pagina_valida": true
+      },
+      {
+        "documento": "informe_calidad_aire_2025.pdf",
+        "pagina": 162,
+        "pagina_valida": true
+      },
+      {
+        "documento": "informe_calidad_aire_2025.pdf",
+        "pagina": 167,
+        "pagina_valida": true
+      },
+      {
+        "documento": "informe_calidad_aire_2025.pdf",
+        "pagina": 19,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": false,
+    "error": "La respuesta generada no incluyó citas con páginas válidas.",
+    "errores_herramientas": []
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Qué niveles de prevención, alerta y emergencia contempla el protocolo POECA del Valle de Aburrá y bajo qué condiciones se activan?",
+    "herramienta_esperada": "search_docs",
+    "estado": "correcta",
+    "modo_respuesta": "llm",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "**Niveles de prevención, alerta y emergencia según el Protocolo POECA del Valle de Aburrá**\n\n| Contaminante | Tiempo de exposición | Nivel de Prevención | Nivel de Alerta | Nivel de Emergencia |\n|--------------|---------------------|---------------------|-----------------|---------------------|\n| **PM10** | 24 h | 155 – 254  pg m⁻³ | 255 – 354  pg m⁻³ | > 355  pg m⁻³ | [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 5] |\n| **PM2.5** | 24 h | 38 – 55  pg m⁻³ | 56 – 150  pg m⁻³ | > 151  pg m⁻³ | [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 5] |\n| **O3** | 8 h | 139 – 167  pg m⁻³ | 168 – 207  pg m⁻³ | > 208  pg m⁻³ | [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 5] |\n| **SO₂** | 1 h | 198 – 486  pg m⁻³ | 487 – 797  pg m⁻³ | > 798  pg m⁻³ | [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 5] |\n| **NO₂** | 1 h | 190 – 677  pg m⁻³ | 678 – 1221  pg m⁻³ | > 1222  pg m⁻³ | [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 5] |\n| **CO** | 8 h | 10 820 – 14 254  pg m⁻³ | 14 255 – 17 688  pg m⁻³ | > 17 689  pg m⁻³ | [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 5] |\n\n### Condiciones de activación\n\n1. **Detección de concentraciones**  \n   Cuando las mediciones de cualquiera de los contaminantes superen los límites de **prevención** y se mantengan durante el período de exposición correspondiente, se activa la **fase de prevención**. Si las concentraciones aumentan al nivel de **alerta** y persisten, la fase de alerta se activa. Si superan el umbral de **emergencia**, se declara la fase de emergencia.  \n   *Referencia:* artículo 10 del protocolo y la Resolución 2254‑2017 del MADS. [acuerdo_04_2018_protocolo_poeca_amva.pdf, p. 13]\n\n2. **Declaración oficial**  \n   - El Director del Área Metropolitana",
+    "citas_recuperadas": [
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 13,
+        "pagina_valida": true
+      },
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 20,
+        "pagina_valida": true
+      },
+      {
+        "documento": "plan_accion_poeca_corantioquia_2026.pdf",
+        "pagina": 9,
+        "pagina_valida": true
+      },
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 5,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": true,
+    "error": null,
+    "errores_herramientas": []
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Qué medidas contempla el protocolo POECA para reducir la contaminación atmosférica durante episodios críticos?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "modo_respuesta": "respaldo",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "Fragmentos recuperados del corpus:\n\n**acuerdo_04_2018_protocolo_poeca_amva.pdf · p. 6**\n\nARTÍCULO 5. PLAN OPERACIONAL PARA ENFRENTAR EPISODIOS DE CONTAMINACIÓN ATMOSFÉRICA EN EL VALLE DE ABURRÁ – POECA-. Es un Eje Temático del Plan Integral de Gestión de la Calidad del Aire –PIGECA-, que comprende un conjunto de medidas tendientes a reducir los niveles de contaminación en el corto plazo, con el fin de prevenir los efectos adversos a la salud de la población por la exposición a altos índices de contaminación. El POECA se enfoca en la gestión de episodios de contaminación por PM10, PM2.5 y O3, contaminantes que reportan superaciones de los límites máximos permisibles para tiempos cortos (horas) de exposición de la población y que a su vez han sido priorizados en las metas de calidad del aire establecidas por el PIGECA. El POECA se estructura a partir de los siguientes componentes:\n\n**plan_accion_poeca_corantioquia_2026.pdf · p. 1**\n\nCorantioquia está comprometida con el tratamiento legal, lícito, confidencial y seguro de sus datos personales. Por favor consulte nuestra Política de Tratamiento de datos personales en nuestra página web: www.corantioquia.gov.co Plan de Acción para la Implementación de Medidas del Protocolo Operacional para Enfrentar Episodios de Contaminación Atmosférica - POECA - en la Zona Rural de los Municipios del Valle de Aburrá Jurisdicción de CORANTIOQUIA Presentado a: Área Metropolitana del Valle de Aburrá - AMVA Preparado por: Dirección General Subdirección de Gestión Ambiental Subdirección de Sostenibilidad y Gestión Territorial Subdirección Administrativa y Financiera Subdirección de Ecosistemas Subdirección de Participación y Cultura Ambiental Oficina Asesora de Comunicaciones Oficina Territorial Aburrá Norte Oficina Territorial Aburrá Sur Medellin, 2026-01-06\n\n**plan_accion_poeca_corantioquia_2026.pdf · p. 4**\n\nRazón por la cual la Corporación adoptó unas medidas establecidas en el Plan Integral de Gestión de la Calidad del Aire en el Valle de Aburrá – PIGECA – y en el Protocolo Operacional para Enfrentar Episodios de Contaminación Atmosférica – POECA – del AMVA, para su aplicación en la zona rural de los municipios del Valle de Aburrá jurisdicción de CORANTIOQUIA, mediante Resolución No 040-RES2003-1099 de 2020. El Protocolo del Plan Operacional para Enfrentar Episodios de Contaminación Atmosférica del AMVA fue adoptado mediante Acuerdo Metropolitano No 04 de 2018, y modificado mediante los Acuerdos Metropolitanos: No 03 de 2019, No 16 de 2020, No 01 de 2021 y No 07 de 2022.\n\n**plan_accion_poeca_corantioquia_2026.pdf · p. 20**\n\nMedellín. CORANTIOQUIA (2020). Resolución 040-RES2003-1099 de 2020. Adopción de medidas establecidas en el Plan Integral de Gestión de la Calidad del Aire en el Valle de Aburrá - PIGECA y en el Protocolo Operacional para Enfrentar Episodios de Contaminación Atmosférica - POECA del Área Metropolitana del Valle de Aburrá. Medellín. CORANTIOQUIA (2020). Resolución 040–RES2004–2068 de 2020. Mesa de gobernanza por la calidad del aire. Medellín.",
+    "citas_recuperadas": [
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 6,
+        "pagina_valida": true
+      },
+      {
+        "documento": "plan_accion_poeca_corantioquia_2026.pdf",
+        "pagina": 1,
+        "pagina_valida": true
+      },
+      {
+        "documento": "plan_accion_poeca_corantioquia_2026.pdf",
+        "pagina": 4,
+        "pagina_valida": true
+      },
+      {
+        "documento": "plan_accion_poeca_corantioquia_2026.pdf",
+        "pagina": 20,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": false,
+    "error": "Groq alcanzó un límite de uso (HTTP 429).",
+    "errores_herramientas": []
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Cuáles son los principales efectos de la exposición a la contaminación atmosférica sobre la salud humana?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Por qué los niños, adultos mayores y personas con enfermedades respiratorias son considerados grupos vulnerables frente a la contaminación del aire?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 7,
+    "pregunta": "Consulta las mediciones de PM2.5 de la estación «BARBOSA - TORRE SOCIAL» entre 2020-01-01 y 2020-01-05. ¿Cuáles fueron los valores registrados?",
+    "herramienta_esperada": "get_pm25",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 8,
+    "pregunta": "Consulta las mediciones de PM2.5 de la estación «BARBOSA - TORRE SOCIAL» entre 2020-11-01 y 2020-11-07. ¿Cuáles fueron los valores registrados?",
+    "herramienta_esperada": "get_pm25",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Qué categoría predice el modelo para el día siguiente al 2020-11-15 en la estación «BARBOSA - TORRE SOCIAL»?",
+    "herramienta_esperada": "predict_tomorrow",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Qué estaciones de monitoreo están disponibles en el sistema de calidad del aire?",
+    "herramienta_esperada": "get_stations",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  }
+]

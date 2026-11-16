@@ -1,13 +1,12 @@
+from src.rag import CARPETA_PDF, leer_pdf
 
-from rag import leer_pdf
-from pathlib import Path
 
 documentos = [
     "acuerdo_16_2017_pigeca_valle_aburra.pdf",
     "resolucion_2254_2017_norma_calidad_aire.pdf"
 ]
 
-carpeta = Path("data/documentos_ambientales")
+carpeta = CARPETA_PDF
 
 for nombre in documentos:
 

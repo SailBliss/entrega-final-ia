@@ -1,0 +1,159 @@
+[
+  {
+    "id": 1,
+    "pregunta": "Según la Circular 0031 de 2026, ¿qué recomendaciones de salud se deben seguir durante episodios de humo y qué grupos poblacionales requieren especial atención?",
+    "herramienta_esperada": "search_docs",
+    "estado": "incorrecta",
+    "modo_respuesta": "respaldo",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "Fragmentos recuperados del corpus:\n\n**circular_0031_2026_recomendaciones_salud_incendios_humo.pdf · p. 1**\n\nAdicionalmente, dependiendo de las características del evento, los incendios forestales pueden afectar fuentes de abastecimiento de agua, generar desplazamientos o alojamientos temporales, incrementar la exposición a altas temperaturas, alterar las condiciones de vida de las comunidades y producir afectaciones psicosociales. Son poblaciones que requieren especial atención los niños y niñas, personas mayores, mujeres gestantes, personas con enfermedades respiratorias o cardiovasculares, personas con otras enfermedades crónicas, personas con discapacidad, trabajadores expuestos, comunidades rurales y rurales dispersas, grupos étnicos y población con barreras geográficas, económicas o sociales para el acceso a servicios de salud.\n\n**circular_0031_2026_recomendaciones_salud_incendios_humo.pdf · p. 2**\n\nEn este contexto, y en el marco de las competencias establecidas en el artículo 4 de la Ley 1438 de 2011, el artículo 2 del Decreto 120 de 2026 y demás disposiciones aplicables, el Ministerio de Salud y Protección Social imparten las siguientes instrucciones con el propósito de intensificar y operacionalizar la preparación y respuesta del sector salud frente a incendios forestales, exposición poblacional al humo y deterioro de la calidad del aire, complementando las disposiciones contenidas en la Circular Externa Conjunta 023 de 2026. 1. COORDINACIÓN, PREPARACIÓN Y ANÁLISIS TERRITORIAL DEL RIESGO\n\n**circular_0031_2026_recomendaciones_salud_incendios_humo.pdf · p. 8**\n\n2 4 SEP 2026 e. f. 9- I- k. 5.5. 5.6. 5.7. d. e. f. b. c. h. i. 6.1. El control o extinción del incendio no implicará automáticamente la finalización de las acciones del sector salud. Las entidades territoriales deberán mantener el seguimiento mientras persistan humo, deterioro de la calidad del aire u otras condiciones que puedan representar riesgo para la población. 6.2. Durante el periodo posterior al evento se deberá, de acuerdo con la situación territorial: a. Priorizar la protección de niños y niñas, personas mayores, mujeres gestantes y personas con enfermedades respiratorias o cardiovasculares. Cuando sea indispensable permanecer en exteriores en presencia de humo^ seguir las recomendaciones sanitarias sobre protección respiratoria. Cuando corresponda, utilizar adecuadamente tapabocas que permitan reducir la inhalación de partículas.\n\n**circular_0031_2026_recomendaciones_salud_incendios_humo.pdf · p. 4**\n\n3.3. Ante niveles de prevención, alerta o emergencia por contaminación del aíre declarados por la autoridad competente, o ante presencia significativa de humo que pueda representar exposición poblacíonal, las entidades territoriales deberán fortalecer las acciones dirigidas a reducir la exposición de la población. 3.4. Se deberán identificar y priorizar entornos con presencia de población susceptible, entre ellos: a. Instituciones educativas. b. Instituciones de salud. c. Centros de protección y establecimientos de larga estancia. d. Entornos comunitarios. e. Entornos laborales con exposición al aire libre. f. Comunidades rurales, rurales dispersas y grupos con barreras de acceso a servicios. g.",
+    "citas_recuperadas": [
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 1,
+        "pagina_valida": true
+      },
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 2,
+        "pagina_valida": true
+      },
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 8,
+        "pagina_valida": true
+      },
+      {
+        "documento": "circular_0031_2026_recomendaciones_salud_incendios_humo.pdf",
+        "pagina": 4,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": false,
+    "error": "La respuesta generada no incluyó citas con páginas válidas.",
+    "errores_herramientas": []
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Cuáles son los límites máximos permisibles de concentración de PM2.5 establecidos en la Resolución 2254 de 2017 para Colombia?",
+    "herramienta_esperada": "search_docs",
+    "estado": "correcta",
+    "modo_respuesta": "llm",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "**Límites máximos permisibles de concentración de PM₂.₅ según la Resolución 2254 de 2017 (Colombia)**  \n\n| Tiempo de exposición | Límite máximo permisible | Referencia |\n|-----------------------|--------------------------|------------|\n| 24 horas (exposición continua) | **50 µg m⁻³** | [resolucion_2254_2017_norma_calidad_aire.pdf, p. 2] |\n| 1 hora (pico de exposición) | **100 µg m⁻³** | [resolucion_2254_2017_norma_calidad_aire.pdf, p. 2] |\n\n> **Nota adicional**  \n> A partir del **1 de julio de 2018** la Resolución 2254 de 2017 establece valores de referencia modificados: 24 h → 75 µg m⁻³ y 1 h → 37 µg m⁻³.  Estos límites están especificados en la misma tabla de referencia, pero en la sección de parráfo que actualiza los valores para 2018. (Ver también p. 2 del mismo documento).\n\nLos valores anteriores (50 µg m⁻³/24 h y 100 µg m⁻³/1 h) son los que se aplican a la normativa vigente en 2020 y a la interpretación histórica de las mediciones. Si necesitas la interpretación de un período específico o la actualización de los valores para 2020, avísame.",
+    "citas_recuperadas": [
+      {
+        "documento": "resolucion_2254_2017_norma_calidad_aire.pdf",
+        "pagina": 3,
+        "pagina_valida": true
+      },
+      {
+        "documento": "resolucion_2254_2017_norma_calidad_aire.pdf",
+        "pagina": 8,
+        "pagina_valida": true
+      },
+      {
+        "documento": "resolucion_2254_2017_norma_calidad_aire.pdf",
+        "pagina": 1,
+        "pagina_valida": true
+      },
+      {
+        "documento": "resolucion_2254_2017_norma_calidad_aire.pdf",
+        "pagina": 2,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": true,
+    "error": null,
+    "errores_herramientas": []
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Qué niveles de prevención, alerta y emergencia contempla el protocolo POECA del Valle de Aburrá y bajo qué condiciones se activan?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "modo_respuesta": "respaldo",
+    "herramientas_usadas": [
+      "search_docs"
+    ],
+    "respuesta": "Fragmentos recuperados del corpus:\n\n**acuerdo_04_2018_protocolo_poeca_amva.pdf · p. 13**\n\n- Claridad en su diseño y sencillez de aplicación, que se traduce en el manejo de reglas claras de participación de cada actor involucrado. ARTÍCULO 10. NIVELES BASE DE LOS CONTAMINANTES. El Protocolo se enfoca en la gestión de episodios de contaminación por PM10, PM2.5 y O3, fijando las concentraciones y tiempos de exposición que determinan situaciones de prevención, alerta o emergencia para estos contaminantes según la Resolución 2254 de 2017 del MADS. Niveles de prevención, alerta y emergencia para el Valle de Aburrá, adaptados de la Resolución 2254 de 2017 del MADS.\n\n**acuerdo_04_2018_protocolo_poeca_amva.pdf · p. 5**\n\nalerta o emergencia, así: Contaminante Tiempo de Exposición Prevención (pg/m3) Alerta (pg/ m3) Emergencia (pg/m3) PM10 24 horas 155-254 255-354 >355 PM2.5 24 horas 38-55 56-150 >151 O3 8 horas 139-167 168-207 >208 SO2 1 hora 198-486 487-797 >798 NO2 1 hora 190-677 678-1221 >1222 CO 8 horas 10820-14254 14255-17688 >17689 En consideración a la problemática de calidad de aire del Valle de Aburrá y en aplicación del Principio de Rigor Subsidiario se podrán declarar los niveles de Prevención, Alerta o Emergencia para cualquiera de estos contaminantes a partir de la expedición de este Acuerdo. - Acuerdo Metropolitano 16 de 2017. Adopta el Plan Integral de Gestión de la Calidad del Aire en el Valle de Aburrá 2017-2030 –PIGECA-, como Plan Estratégico para la disminución a corto, mediano y largo plazo de la contaminación atmosférica.\n\n**acuerdo_04_2018_protocolo_poeca_amva.pdf · p. 15**\n\nARTÍCULO 13. PERÍODO DE GESTIÓN DE EPISODIOS DE CONTAMINACIÓN ATMOSFÉRICA. En consideración al comportamiento típico anual del material particulado (PM10 y PM2.5), que evidencia un incremento de las concentraciones durante dos (2) periodos del año, regularmente febrero - abril y octubre – noviembre, éste se establecerá como periodo de gestión de episodios de la contaminación atmosférica permanente en el Valle de Aburrá con el fin de implementar acciones que permitan mitigar las emisiones y facilitar la preparación en caso de alcanzar niveles de contaminación atmosférica que ameriten la declaratoria de un nivel de Prevención, Alerta o Emergencia.\n\n**acuerdo_04_2018_protocolo_poeca_amva.pdf · p. 16**\n\nLos Alcaldes serán voceros en su municipio para su divulgación. Concordancias MEDELLIN Área Metropolitana del Valle de Aburrá: 2026: Resolución 3101 de 2026, por medio de la cual se declara el periodo de gestión de episodios de contaminación atmosférica, en el segundo semestre de 2026, en la Jurisdicción del Área Metropolitana del Valle de Aburrá; y se toman otras determinaciones 2022: Resolución 2663 de 2022, por la cual se declara el periodo de Gestión de episodios de contaminación atmosférica, en el segundo semestre de 2022, en la jurisdicción del Área Metropolitana del Valle de Aburrá; y se toman otras determinaciones ARTÍCULO 16. CÁLCULO DE LOS NIVELES DE PREVENCIÓN, ALERTA O EMERGENCIA. Se realizará el cálculo de los niveles de Prevención, Alerta o Emergencia de",
+    "citas_recuperadas": [
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 13,
+        "pagina_valida": true
+      },
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 5,
+        "pagina_valida": true
+      },
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 15,
+        "pagina_valida": true
+      },
+      {
+        "documento": "acuerdo_04_2018_protocolo_poeca_amva.pdf",
+        "pagina": 16,
+        "pagina_valida": true
+      }
+    ],
+    "cita_correcta": false,
+    "error": "Groq alcanzó un límite de uso (HTTP 429).",
+    "errores_herramientas": []
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Qué medidas contempla el protocolo POECA para reducir la contaminación atmosférica durante episodios críticos?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Cuáles son los principales efectos de la exposición a la contaminación atmosférica sobre la salud humana?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Por qué los niños, adultos mayores y personas con enfermedades respiratorias son considerados grupos vulnerables frente a la contaminación del aire?",
+    "herramienta_esperada": "search_docs",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 7,
+    "pregunta": "Consulta las mediciones de PM2.5 de la estación «BARBOSA - TORRE SOCIAL» entre 2020-01-01 y 2020-01-05. ¿Cuáles fueron los valores registrados?",
+    "herramienta_esperada": "get_pm25",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 8,
+    "pregunta": "Consulta las mediciones de PM2.5 de la estación «BARBOSA - TORRE SOCIAL» entre 2020-11-01 y 2020-11-07. ¿Cuáles fueron los valores registrados?",
+    "herramienta_esperada": "get_pm25",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Qué categoría predice el modelo para el día siguiente al 2020-11-15 en la estación «BARBOSA - TORRE SOCIAL»?",
+    "herramienta_esperada": "predict_tomorrow",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Qué estaciones de monitoreo están disponibles en el sistema de calidad del aire?",
+    "herramienta_esperada": "get_stations",
+    "estado": "no ejecutada",
+    "error": "Groq alcanzó un límite de uso (HTTP 429)."
+  }
+]
