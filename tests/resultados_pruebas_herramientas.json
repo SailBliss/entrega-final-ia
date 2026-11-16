@@ -1,0 +1,41 @@
+[
+    {
+        "prueba": "CONSULTA DE ESTACIONES",
+        "pregunta": "¿Qué estaciones están disponibles?",
+        "herramienta_esperada": "get_stations",
+        "herramientas_utilizadas": [
+            "get_stations"
+        ],
+        "seleccion_correcta": true,
+        "respuesta": "RESULTADO DE GET_STATIONS\n\n[\n  {\n    \"station_id\": \"estacion_demo_1\",\n    \"nombre\": \"Estacion de demostracion 1\",\n    \"simulado\": true\n  },\n  {\n    \"station_id\": \"estacion_demo_2\",\n    \"nombre\": \"Estacion de demostracion 2\",\n    \"simulado\": true\n  },\n  {\n    \"station_id\": \"estacion_demo_3\",\n    \"nombre\": \"Estacion de demostracion 3\",\n    \"simulado\": true\n  }\n]\n\n\nNOTA: Esta respuesta alternativa se construyo directamente a partir de los resultados de las herramientas. No fue generada ni interpretada por el modelo LLM. Los fragmentos documentales deben verificarse en sus documentos originales. Los datos simulados no representan mediciones reales.",
+        "respuesta_alternativa": true,
+        "error_modelo": "No hay un proveedor LLM configurado. Revisa GROQ_API_KEY en el archivo .env.",
+        "estado": "CORRECTA"
+    },
+    {
+        "prueba": "MEDICIONES DE PM2.5",
+        "pregunta": "Consulta las mediciones de PM2.5 entre 2026-11-10 y 2026-11-15.",
+        "herramienta_esperada": "get_pm25",
+        "herramientas_utilizadas": [
+            "get_pm25"
+        ],
+        "seleccion_correcta": true,
+        "respuesta": "RESULTADO DE GET_PM25\n\n{\n  \"estado\": \"exitoso\",\n  \"station_id\": \"estacion_demo_1\",\n  \"registros\": [\n    {\n      \"station_id\": \"estacion_demo_1\",\n      \"estacion\": \"Estacion de demostracion 1\",\n      \"fecha\": \"2026-11-10\",\n      \"pm25\": 17.46,\n      \"unidad\": \"ug/m3\",\n      \"simulado\": true\n    },\n    {\n      \"station_id\": \"estacion_demo_1\",\n      \"estacion\": \"Estacion de demostracion 1\",\n      \"fecha\": \"2026-11-11\",\n      \"pm25\": 16.94,\n      \"unidad\": \"ug/m3\",\n      \"simulado\": true\n    },\n    {\n      \"station_id\": \"estacion_demo_1\",\n      \"estacion\": \"Estacion de demostracion 1\",\n      \"fecha\": \"2026-11-12\",\n      \"pm25\": 16.39,\n      \"unidad\": \"ug/m3\",\n      \"simulado\": true\n    },\n    {\n      \"station_id\": \"estacion_demo_1\",\n      \"estacion\": \"Estacion de demostracion 1\",\n      \"fecha\": \"2026-11-13\",\n      \"pm25\": 17.85,\n      \"unidad\": \"ug/m3\",\n      \"simulado\": true\n    },\n    {\n      \"station_id\": \"estacion_demo_1\",\n      \"estacion\": \"Estacion de demostracion 1\",\n      \"fecha\": \"2026-11-14\",\n      \"pm25\": 17.34,\n      \"unidad\": \"ug/m3\",\n      \"simulado\": true\n    },\n    {\n      \"station_id\": \"estacion_demo_1\",\n      \"estacion\": \"Estacion de demostracion 1\",\n      \"fecha\": \"2026-11-15\",\n      \"pm25\": 18.1,\n      \"unidad\": \"ug/m3\",\n      \"simulado\": true\n    }\n  ],\n  \"simulado\": true\n}\n\n\nNOTA: Esta respuesta alternativa se construyo directamente a partir de los resultados de las herramientas. No fue generada ni interpretada por el modelo LLM. Los fragmentos documentales deben verificarse en sus documentos originales. Los datos simulados no representan mediciones reales.",
+        "respuesta_alternativa": true,
+        "error_modelo": "No hay un proveedor LLM configurado. Revisa GROQ_API_KEY en el archivo .env.",
+        "estado": "CORRECTA"
+    },
+    {
+        "prueba": "PREDICCION DE CALIDAD DEL AIRE",
+        "pregunta": "¿Cuál es la predicción de calidad del aire para mañana?",
+        "herramienta_esperada": "predict_tomorrow",
+        "herramientas_utilizadas": [
+            "predict_tomorrow"
+        ],
+        "seleccion_correcta": true,
+        "respuesta": "RESULTADO DE PREDICT_TOMORROW\n\n{\n  \"estado\": \"exitoso\",\n  \"station_id\": \"estacion_demo_1\",\n  \"estacion\": \"Estacion de demostracion 1\",\n  \"fecha_referencia\": \"2026-11-15\",\n  \"fecha_predicha\": \"2026-11-16\",\n  \"categoria\": \"Moderada\",\n  \"probabilidades\": {\n    \"Baja\": 0.2,\n    \"Moderada\": 0.65,\n    \"Alta\": 0.15\n  },\n  \"simulado\": true,\n  \"advertencia\": \"Resultado de demostracion. No corresponde a una prediccion real ni oficial.\"\n}\n\n\nNOTA: Esta respuesta alternativa se construyo directamente a partir de los resultados de las herramientas. No fue generada ni interpretada por el modelo LLM. Los fragmentos documentales deben verificarse en sus documentos originales. Los datos simulados no representan mediciones reales.",
+        "respuesta_alternativa": true,
+        "error_modelo": "No hay un proveedor LLM configurado. Revisa GROQ_API_KEY en el archivo .env.",
+        "estado": "CORRECTA"
+    }
+]

@@ -1,0 +1,9 @@
+
+openai
+python-dotenv
+chromadb
+sentence-transformers
+pymupdf
+requests
+pandas
+numpy
