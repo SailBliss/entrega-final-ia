@@ -59,7 +59,7 @@ $env:RAG_INDEX_DIR = "data/chroma_rebuilt"
 .\.venv\Scripts\python -m streamlit run app.py
 ```
 
-La salida debe ser un directorio nuevo. El índice versionado se conserva y la aplicación no lo reconstruye al arrancar.
+La salida debe ser un directorio nuevo. El índice versionado se conserva y la aplicación no lo reconstruye al arrancar. Se verificó una consulta híbrida con MiniLM y la colección versionada. La reconstrucción integral con OCR queda pendiente porque el entorno de validación carecía del ejecutable de Tesseract.
 
 ## Evaluaciones
 

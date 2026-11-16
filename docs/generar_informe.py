@@ -98,7 +98,7 @@ def generar():
     paragraph("Arquitectura e interacción", heading)
     paragraph("Streamlit muestra la serie de PM2.5, la comparación de promedios por estación, las probabilidades del clasificador y el chat. El agente usa un ciclo de hasta tres solicitudes a Groq y cuatro herramientas: listar estaciones, consultar mediciones, predecir y recuperar documentos. Los adaptadores serializan mediciones y resultados del modelo en JSON. La interfaz muestra el modo de respuesta, los errores, las herramientas y las fuentes.")
     paragraph("Recuperación documental", heading)
-    paragraph("El corpus incluye nueve PDFs sobre normativa, planes ambientales y salud. La colección ChromaDB incluida tiene 1.095 fragmentos con nombre de archivo y página. La búsqueda base por coincidencias de texto funciona localmente. El modo híbrido añade similitud semántica con MiniLM multilingüe. El pipeline conserva extracción por página, OCR para escaneos y fragmentación con solapamiento.")
+    paragraph("El corpus incluye nueve PDFs sobre normativa, planes ambientales y salud. La colección ChromaDB incluida tiene 1.095 fragmentos con nombre de archivo y página. La búsqueda base por coincidencias de texto funciona localmente. El modo híbrido añade similitud semántica con MiniLM multilingüe. Una consulta híbrida recuperó la Resolución 2254 de 2017. La reconstrucción integral con OCR requiere Tesseract y quedó pendiente en este entorno.")
     paragraph("Evaluación del agente", heading)
     table([
         ["Modalidad", "Correctas", "Incorrectas", "Sin ejecución"],
